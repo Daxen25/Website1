@@ -24,7 +24,7 @@ Impostare `SITE_URL` all’URL HTTPS reale della preview prima della build per g
 - `src/data/site.ts`: identità, contatti, orari, navigazione, testi principali, prodotti, avvisi e SEO. Tutti i dati commerciali sono da verificare.
 - `src/components/`: intestazione e navigazione responsive, titoli di sezione e immagini responsive riutilizzabili.
 - `src/pages/index.astro`: composizione semantica della pagina e metadati.
-- `src/styles/global.css`: palette, tipografia di sistema, layout e animazioni rispettose di `prefers-reduced-motion`.
+- `src/styles/global.css`: basi responsive e accessibilità. `src/styles/bottega.css`: direzione visiva “bottega di quartiere”, carta, cartellini e foto sfalsate. Nessun font esterno. Entrambi rispettano `prefers-reduced-motion`.
 - `public/images/`: risorse WebP locali a 640, 1000 e 1536 pixel. Nessuna richiesta a servizi fotografici o font esterni.
 
 Per un futuro sito ufficiale: ottenere autorizzazione, verificare dati e copy, sostituire le immagini illustrative con materiale approvato, rivedere note legali e impostazioni di indicizzazione. Non rimuovere gli avvisi nella demo.
@@ -36,5 +36,7 @@ Le tre immagini sono state generate appositamente con OpenAI il 20 ottobre 2026 
 ## Verifiche
 
 Controlli di riferimento: `npm run check`, `npm run build`, richieste HTTP sulla build, verifica browser desktop/mobile, navigazione e immagini. Il punteggio Lighthouse dipende dall’hosting e va misurato sulla preview pubblicata; nessun punteggio viene garantito. Nessun database, form, CMS, autenticazione, analytics o cookie di tracciamento.
+
+La direzione “bottega di quartiere” usa testi e dettagli locali in `site.design`, illustrazione SVG originale `BreadSketch.astro`, composizioni asimmetriche e cartellini tipografici. Non aggiunge storia aziendale, certificazioni o affermazioni sui metodi di produzione.
 
 Verifica eseguita nell’ambiente cloud: installazione ripetibile con `npm ci`, Astro check (0 errori/avvisi), build statica, richieste HTTP sviluppo/preview e browser Chromium a 320, 390 e 1440 px superati. Verificati menu mobile, ancore, assenza di overflow, caricamento immagini, link telefono/indicazioni e assenza di richieste esterne. Lighthouse locale mobile: prestazioni 99, accessibilità 100, buone pratiche 100, SEO 66 (indicizzazione intenzionalmente bloccata per la demo). I controlli automatici non sostituiscono una verifica assistiva manuale o una misurazione sulla destinazione pubblicata.
