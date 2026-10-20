@@ -1,0 +1,17 @@
+---
+import Icon from './Icon.astro';
+interface Props { name: string; nav: { label: string; href: string }[]; notice: string; }
+const {name, nav, notice} = Astro.props;
+---
+<div class="demo-notice">{notice}</div>
+<header class="header">
+  <div class="shell header-inner">
+    <a class="wordmark" href="#inizio" aria-label={`${name}, inizio pagina`}><span class="wheat" aria-hidden="true"><Icon name="star" /></span>{name}<span class="wordmark-dot">.</span></a>
+    <nav class="desktop-nav" aria-label="Navigazione principale">{nav.map(link => <a href={link.href}>{link.label}</a>)}</nav>
+    <a class="header-cta" href="#contatti">Passa a trovarci <span aria-hidden="true"><Icon name="arrow" /></span></a>
+    <details class="mobile-nav"><summary>Menu <span aria-hidden="true">☰</span></summary><nav aria-label="Navigazione mobile">{nav.map(link => <a href={link.href}>{link.label}</a>)}</nav></details>
+  </div>
+</header>
+<script>
+  document.querySelectorAll('.mobile-nav a').forEach(link => link.addEventListener('click', () => document.querySelector('.mobile-nav')?.removeAttribute('open')));
+</script>

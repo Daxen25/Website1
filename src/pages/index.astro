@@ -1,0 +1,38 @@
+---
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import Header from '../components/Header.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import BakeryImage from '../components/BakeryImage.astro';
+import '../styles/global.css';
+---
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{site.seo.title}</title><meta name="description" content={site.seo.description} />
+  <meta name="robots" content="noindex, nofollow" /><meta name="theme-color" content="#F7F1E7" />
+  <meta property="og:type" content="website" /><meta property="og:locale" content="it_IT" />
+  <meta property="og:title" content={site.seo.title} /><meta property="og:description" content={site.seo.description} />
+  <meta property="og:image" content={Astro.site ? new URL("images/bread.webp", Astro.site).href : "/images/bread.webp"} /><meta property="og:image:alt" content={site.products[0].alt} />
+  {Astro.site && <><link rel="canonical" href={Astro.site} /><meta property="og:url" content={Astro.site.href} /></>}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+  <Header name={site.name} nav={site.nav} notice={site.notice} />
+  <main id="contenuto">
+    <section class="hero shell" id="inizio" aria-labelledby="hero-title">
+      <div class="hero-copy"><p class="eyebrow"><span class="small-line"></span>{site.locality}</p><h1 id="hero-title">{site.hero.title}<br /><em>{site.hero.emphasis}</em></h1><p class="hero-description">{site.hero.description}</p><div class="hero-actions"><a class="button" href="#proposte">{site.hero.primary}<span aria-hidden="true"><Icon name="arrow" /></span></a><a class="text-link" href="#contatti">{site.hero.secondary}<span aria-hidden="true">→</span></a></div><div class="hero-footnote"><span aria-hidden="true"><Icon name="star" /></span><span>{site.hero.eyebrow}</span></div></div>
+      <figure class="hero-figure"><BakeryImage src="/images/bread.webp" alt={site.products[0].alt} eager /><div class="image-stamp" aria-hidden="true">PANE E PICCOLE<br /><span>felicità</span><br />SOVICO · BRIANZA</div><figcaption>Immagine illustrativa · Non è una foto del forno</figcaption></figure>
+    </section>
+    <div class="ticker" aria-hidden="true"><span>PANE</span><Icon name="star" /><span>FOCACCIA</span><Icon name="star" /><span>PIZZA</span><Icon name="star" /><span>GRISSINI</span><Icon name="star" /><span>BISCOTTI</span><Icon name="star" /><span>DOLCI</span></div>
+    <section class="shell intro section-space" id="il-forno"><div><SectionHeading eyebrow={site.intro.eyebrow} title={site.intro.title} /></div><div class="intro-text"><p class="lead">{site.intro.text}</p><p>{site.intro.detail}</p><span class="signature">Il buono, ogni giorno.</span></div></section>
+    <section class="shell section-space products-section" id="proposte"><div class="section-heading-row"><div><SectionHeading eyebrow="DAL PANE AL DOLCE" title="A ognuno, il suo momento." /></div><p>Per la tavola, per una pausa,<br />per il semplice piacere di scegliere.</p></div><div class="products-grid">{site.products.map(product => <article class="product"><div class="product-image"><BakeryImage src={product.image} alt={product.alt} position={product.position} /><span class="product-number">{product.number}</span></div><p class="eyebrow">{product.subtitle}</p><h3>{product.name}</h3><p>{product.description}</p></article>)}</div><p class="image-disclaimer">Fotografie illustrative generate con IA. Prodotti e disponibilità da verificare in negozio.</p></section>
+    <section class="story"><div class="shell story-grid"><figure><BakeryImage src="/images/bread.webp" alt="Pane su un tavolo rustico: immagine illustrativa" /><figcaption>Un’ispirazione visiva, non una foto del negozio.</figcaption></figure><div class="story-copy"><span class="story-symbol" aria-hidden="true"><Icon name="star" /></span><SectionHeading eyebrow={site.story.eyebrow} title={site.story.title} /><p class="lead">{site.story.text}</p><p>{site.story.detail}</p><a class="text-link" href="#contatti">Un salto in forno <span aria-hidden="true"><Icon name="arrow" /></span></a></div></div></section>
+    <section class="shell section-space gallery"><div class="section-heading-row"><div><SectionHeading eyebrow={site.gallery.eyebrow} title={site.gallery.title} /></div><span class="gallery-note">Un po’ di buono,<br /><em>anche per gli occhi.</em></span></div><div class="gallery-grid"><BakeryImage src="/images/pastries.webp" alt="Dolci da forno illustrativi" /><BakeryImage src="/images/bread.webp" alt="Dettaglio illustrativo di pane" /><BakeryImage src="/images/focaccia.webp" alt="Focaccia illustrativa pronta da condividere" /></div><p class="image-disclaimer">{site.gallery.disclaimer}</p></section>
+    <section class="contact section-space" id="contatti"><div class="shell"><div class="contact-heading"><div><SectionHeading eyebrow={site.contact.eyebrow} title={site.contact.title} /></div><p>{site.contact.description}</p></div><div class="contact-grid"><div class="address-card"><span class="contact-icon" aria-hidden="true"><Icon name="arrow" /></span><h3>{site.name}</h3><address>{site.address}<br />{site.postalAddress}</address><a class="phone" href={`tel:${site.telephone}`}>{site.phone}</a><a class="button" href={site.directions} target="_blank" rel="noopener noreferrer">Indicazioni su Google Maps <span aria-hidden="true"><Icon name="arrow" /></span><span class="sr-only"> (si apre in una nuova scheda)</span></a></div><div class="hours"><h3>Quando passare</h3><table><caption class="sr-only">Orari di apertura da verificare</caption><thead><tr><th scope="col">Giorno</th><th scope="col">Mattina</th><th scope="col">Pomeriggio</th></tr></thead><tbody>{site.hours.map(row => <tr><th scope="row">{row.day}</th><td>{row.morning}</td><td>{row.afternoon}</td></tr>)}</tbody></table><p class="hours-note">Gli orari potrebbero variare nei giorni festivi. Chiama prima di passare.</p></div></div><p class="verification">{site.contact.verification}</p></div></section>
+  </main>
+  <footer><div class="shell"><div class="footer-top"><a href="#inizio" class="wordmark">{site.name}<span class="wordmark-dot">.</span></a><p>Il piacere delle cose semplici.</p><a class="text-link" href="#inizio">Torna su ↑</a></div><div class="footer-bottom"><span>© {new Date().getFullYear()} · Demo non ufficiale</span><p>{site.footer}</p></div></div></footer>
+</body>
+</html>

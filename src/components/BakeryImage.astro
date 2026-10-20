@@ -1,0 +1,5 @@
+---
+interface Props { src: string; alt: string; class?: string; eager?: boolean; position?: string; }
+const { src, alt, class: className, eager = false, position = 'center' } = Astro.props;
+---
+<img src={src} srcset={`${src.replace(".webp", "-640.webp")} 640w, ${src.replace(".webp", "-1000.webp")} 1000w, ${src} 1536w`} sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1050px) 50vw, 640px" alt={alt} class={className} width="1536" height="1024" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" style={`object-position:${position}`} />
